@@ -6,28 +6,32 @@ Piano transcription is the task of transcribing piano recordings into MIDI files
 <a href="https://replicate.com/replicate/piano-transcription"><img src="https://replicate.com/replicate/piano-transcription/badge"></a>
 
 ## Demos
-Here is a demo of our piano transcription system: https://www.youtube.com/watch?v=5U-WL0QvKCg
+
+Here is a demo of our piano transcription system: <https://www.youtube.com/watch?v=5U-WL0QvKCg>
 
 [Demo and Docker image on Replicate](https://replicate.ai/bytedance/piano-transcription)
 
 ## Environments
+
 This codebase is developed with Python 3.7 and PyTorch 1.4.0 (Should work with other versions, but not fully tested).
 
 Install dependencies:
-```
+
+```shell
 pip install -r requirements.txt
 ```
 
 ## Piano transcription using pretrained model
-The easiest way is to transcribe a new piano recording is to install the piano_transcription_inference package: https://github.com/qiuqiangkong/piano_transcription_inference with pip as follows: 
 
-```
-pip install piano_transcription_inference
+The easiest way is to transcribe a new piano recording is to install the piano_transcription_inference package: <https://github.com/jc-stu/piano_transcription_inference> with pip as follows:
+
+```shell
+pip install git+https://github.com/jc-stu/piano_transcription_inference.git
 ```
 
 Then, execute the following commands to transcribe this [audio](resources/cut_liszt.mp3).
 
-```
+```python
 from piano_transcription_inference import PianoTranscription, sample_rate, load_audio
 
 # Load audio
@@ -45,7 +49,8 @@ transcribed_dict = transcriptor.transcribe(audio, 'cut_liszt.mid')
 This section provides instructions if users would like to train a piano transcription system from scratch.
 
 ### 0. Prepare data
-We use MAESTRO dataset V2.0.0 [1] to train the piano transcription system. MAESTRO consists of over 200 hours of virtuosic piano performances captured with fine alignment (~3 ms) between note labels and audio waveforms. MAESTRO dataset can be downloaded from https://magenta.tensorflow.org/datasets/maestro.
+
+We use MAESTRO dataset V2.0.0 [1] to train the piano transcription system. MAESTRO consists of over 200 hours of virtuosic piano performances captured with fine alignment (~3 ms) between note labels and audio waveforms. MAESTRO dataset can be downloaded from <https://magenta.tensorflow.org/datasets/maestro>.
 
 Statistics of MAESTRO V2.0.0 [[ref]](https://magenta.tensorflow.org/datasets/maestro#v200):
 
@@ -67,7 +72,7 @@ dataset_root
 ├── 2008
 │    └── (294 files)
 ├── 2009
-│    └── (250 files) 
+│    └── (250 files)
 ├── 2011
 │    └── (326 files)
 ├── 2013
@@ -97,9 +102,10 @@ Execute the commands line by line in runme.sh, including:
 5) Combine piano note and piano pedal transcription systems.
 6) Evaluate.
 
-All training steps are described in runme.sh. It worth looking into runme.sh to see how the piano transcription system is trained. In total 29 GB GPU memoroy is required with a batch size of 12. Users may consider to reduce the batch size, or use multiple GPU cards to train this system.
+All training steps are described in runme.sh. It worth looking into runme.sh to see how the piano transcription system is trained. In total 29 GB GPU memory is required with a batch size of 12. Users may consider to reduce the batch size, or use multiple GPU cards to train this system.
 
 ## Results
+
 The training uses a single Tesla-V100-PCIE-32GB card. The system is trained for 300k iterations for one week. The training looks like:
 
 <pre>
@@ -135,23 +141,28 @@ Model saved to .../workspaces/piano_transcription/checkpoints/main/Regress_onset
 
 **Demo 1.** Lang Lang: Franz Liszt - Love Dream (Liebestraum) [[audio]](resources/cut_liszt.mp3) [[transcribed_midi]](resources/cut_liszt.mid)
 
-<img src="resources/cut_liszt.png">
+![](resources/cut_liszt.png)
 
 **Demo 2.** Andras Schiff: J.S.Bach - French Suites [[audio]](resources/cut_bach.mp3) [[transcribed_midi]](resources/cut_bach.mid)
 
-<img src="resources/cut_bach.png">
+![](resources/cut_bach.png)
 
 ## FAQs
+
 If users met running out of GPU memory error, then try to reduce batch size.
 
 ## LICENSE
+
 Apache 2.0
 
 ## Applications
-We have built a large-scale classical piano MIDI dataset using our piano transcription system. See https://github.com/bytedance/GiantMIDI-Piano for details.
+
+We have built a large-scale classical piano MIDI dataset using our piano transcription system. See <https://github.com/bytedance/GiantMIDI-Piano> for details.
 
 ## Contact
-Qiuqiang Kong, kongqiuqiang@bytedance.com
+
+Qiuqiang Kong, [kongqiuqiang@bytedance.com](mailto:kongqiuqiang@bytedance.com)
 
 ## Cite
+
 [1] Qiuqiang Kong, Bochen Li, Xuchen Song, Yuan Wan, and Yuxuan Wang. "High-resolution Piano Transcription with Pedals by Regressing Onsets and Offsets Times." arXiv preprint arXiv:2010.01815 (2020). [[pdf]](https://arxiv.org/pdf/2010.01815.pdf)

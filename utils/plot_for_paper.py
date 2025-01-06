@@ -587,7 +587,7 @@ def plot_midi(args):
         midi_events=midi_dict['midi_event'])
     
     fig, axs = plt.subplots(3, 1, figsize=(10, 4), sharex=True)
-    logmel = np.log(librosa.feature.melspectrogram(audio, sr=16000, n_fft=2048, hop_length=160, n_mels=229, fmin=30, fmax=8000)).T
+    logmel = np.log(librosa.feature.melspectrogram(y=audio, sr=16000, n_fft=2048, hop_length=160, n_mels=229, fmin=30, fmax=8000)).T
     axs[0].matshow(logmel.T, origin='lower', aspect='auto', cmap='jet')
     axs[1].matshow(target_dict['frame_roll'].T, origin='lower', aspect='auto', cmap='jet', vmin=-1, vmax=1)
     axs[2].plot(target_dict['pedal_frame_roll'])
@@ -606,7 +606,7 @@ def plot_midi(args):
     axs[2].xaxis.set_ticks(np.arange(0, audio_seconds * fps + 1, 5 * fps))
     axs[2].xaxis.set_ticklabels(np.arange(0, audio_seconds + 1e-6, 5))
     axs[2].set_xlabel('Seconds')
-    plt.tight_layout(0, 0, 0)
+    plt.tight_layout(pad=0, h_pad=0, w_pad=0)
     plt.savefig(fig_path)
     print('Save out to {}'.format(fig_path))
     
